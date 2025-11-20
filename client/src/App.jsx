@@ -89,7 +89,7 @@ export default function App() {
 
     try {
       // Make sure this matches your local or deployed backend URL
-      const response = await fetch('http://localhost:5000/api/download?url=' + encodeURIComponent(url));
+      const response = await fetch('https://instafetch-pqqw.onrender.com/api/download?url=' + encodeURIComponent(url));
       const data = await response.json();
       
       if (!response.ok) throw new Error(data.error || 'Failed to fetch');
