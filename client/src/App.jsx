@@ -41,24 +41,6 @@ const TermsOfService = () => (
   </div>
 );
 
-const AboutContact = () => (
-  <div className="max-w-4xl mx-auto px-4 py-12">
-    <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
-    <div className="bg-purple-50 p-8 rounded-2xl border border-purple-100 text-center">
-      <Mail className="mx-auto text-purple-600 mb-4" size={48} />
-      <p className="text-lg text-slate-700 mb-6">
-        Have questions about InstaFetch Pro? We are here to help.
-      </p>
-      <a href="mailto:support@insightforge.ai" className="inline-block bg-purple-600 text-white font-bold py-3 px-8 rounded-full hover:bg-purple-700 transition">
-        Email Support
-      </a>
-      <p className="mt-6 text-sm text-slate-500">
-        For DMCA takedown requests, please email us with the subject line "DMCA Request".
-      </p>
-    </div>
-  </div>
-);
-
 const CookieConsent = ({ onAccept }) => (
   <div className="fixed bottom-0 left-0 right-0 bg-slate-900 text-white p-4 z-50 flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg animate-in slide-in-from-bottom">
     <div className="text-sm">
@@ -182,7 +164,6 @@ export default function App() {
         
         {currentPage === 'privacy' && <PrivacyPolicy />}
         {currentPage === 'terms' && <TermsOfService />}
-        {currentPage === 'contact' && <AboutContact />}
 
         {currentPage === 'home' && (
           <>
@@ -350,7 +331,6 @@ export default function App() {
               <ul className="space-y-2 text-sm text-slate-600">
                 <li><button onClick={() => navigateTo('privacy')} className="hover:text-purple-600">Privacy Policy</button></li>
                 <li><button onClick={() => navigateTo('terms')} className="hover:text-purple-600">Terms of Service</button></li>
-                <li><button onClick={() => navigateTo('contact')} className="hover:text-purple-600">DMCA / Contact</button></li>
               </ul>
             </div>
             <div>
