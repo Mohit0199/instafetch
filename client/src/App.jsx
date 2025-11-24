@@ -41,7 +41,23 @@ const TermsOfService = () => (
   </div>
 );
 
-
+const AboutContact = () => (
+  <div className="max-w-4xl mx-auto px-4 py-12">
+    <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
+    <div className="bg-purple-50 p-8 rounded-2xl border border-purple-100 text-center">
+      <Mail className="mx-auto text-purple-600 mb-4" size={48} />
+      <p className="text-lg text-slate-700 mb-6">
+        Have questions about InstaFetch Pro? We are here to help.
+      </p>
+      <a href="mailto:support@insightforge.ai" className="inline-block bg-purple-600 text-white font-bold py-3 px-8 rounded-full hover:bg-purple-700 transition">
+        Email Support
+      </a>
+      <p className="mt-6 text-sm text-slate-500">
+        For DMCA takedown requests, please email us with the subject line "DMCA Request".
+      </p>
+    </div>
+  </div>
+);
 
 const CookieConsent = ({ onAccept }) => (
   <div className="fixed bottom-0 left-0 right-0 bg-slate-900 text-white p-4 z-50 flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg animate-in slide-in-from-bottom">
@@ -117,14 +133,23 @@ export default function App() {
     setLoading(true);
 
     try {
-      const API_BASE = 'https://instafetch-api.onrender.com'; 
+      // SMART URL SELECTION:
+      // If running locally (Vite dev server), use localhost:5000
+      // If running in production, use the Render URL
+      const API_BASE = import.meta.env.DEV 
+        ? 'http://localhost:5000' 
+        : 'https://instafetch-api.onrender.com';
+        
+      console.log("Attempting to fetch from:", API_BASE); // Debug log
+
       const response = await fetch(`${API_BASE}/api/download?url=` + encodeURIComponent(url));
       const data = await response.json();
       
       if (!response.ok) throw new Error(data.error || 'Failed to fetch');
       setResult(data); 
     } catch (err) {
-      setError(err.message);
+      console.error("Download Error:", err);
+      setError(err.message || "Failed to connect to server. Ensure backend is running.");
     } finally {
       setLoading(false);
     }
@@ -147,6 +172,7 @@ export default function App() {
           </div>
           <div className="hidden md:flex gap-6 text-sm font-medium text-slate-600">
             <button onClick={() => navigateTo('home')} className="hover:text-purple-600 transition">Home</button>
+            <button onClick={() => navigateTo('contact')} className="hover:text-purple-600 transition">Contact</button>
           </div>
         </div>
       </nav>
@@ -177,7 +203,7 @@ export default function App() {
                     <input
                       type="text"
                       placeholder="Paste Instagram post link here..."
-                      className="flex-1 px-6 py-4 rounded-full bg-transparent outline-none text-slate-900 placeholder:text-slate-400WV w-full"
+                      className="flex-1 px-6 py-4 rounded-full bg-transparent outline-none text-slate-900 placeholder:text-slate-400 w-full"
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
                       aria-label="Instagram URL input"
@@ -185,7 +211,7 @@ export default function App() {
                     <button 
                       disabled={loading}
                       type="submit" 
-                      className="bg-purple-600 hover:bg-purple-700 text-white font-bold px-8 py-3 rounded-full transition-allmW flex items-center justify-center gap-2 disabled:opacity-70 whitespace-nowrap m-1"
+                      className="bg-purple-600 hover:bg-purple-700 text-white font-bold px-8 py-3 rounded-full transition-all flex items-center justify-center gap-2 disabled:opacity-70 whitespace-nowrap m-1"
                     >
                       {loading ? <Loader className="animate-spin" size={20} /> : 'Get Download'}
                     </button>
@@ -206,7 +232,7 @@ export default function App() {
 
                 {/* RESULT CARD */}
                 {result && (
-                  <div className="bg-white p-6 rounded-2xl shadow-2xl shadow-slate-200/50 max-w-sm mx-autoyb border border-slate-100 animate-in fade-in zoom-in-95 duration-300">
+                  <div className="bg-white p-6 rounded-2xl shadow-2xl shadow-slate-200/50 max-w-sm mx-auto border border-slate-100 animate-in fade-in zoom-in-95 duration-300">
                     <div className="aspect-[4/5] bg-slate-100 rounded-xl overflow-hidden relative group mb-5 shadow-inner">
                       <img 
                           src={result.thumbnail} 
@@ -324,6 +350,7 @@ export default function App() {
               <ul className="space-y-2 text-sm text-slate-600">
                 <li><button onClick={() => navigateTo('privacy')} className="hover:text-purple-600">Privacy Policy</button></li>
                 <li><button onClick={() => navigateTo('terms')} className="hover:text-purple-600">Terms of Service</button></li>
+                <li><button onClick={() => navigateTo('contact')} className="hover:text-purple-600">DMCA / Contact</button></li>
               </ul>
             </div>
             <div>
