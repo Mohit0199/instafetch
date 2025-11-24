@@ -120,7 +120,7 @@ export default function App() {
       // If running in production, use the Render URL
       const API_BASE = import.meta.env.DEV 
         ? 'http://localhost:5000' 
-        : 'https://instafetch-api.onrender.com';
+        : 'https://instafetch-pqqw.onrender.com';
         
       console.log("Attempting to fetch from:", API_BASE); // Debug log
 
@@ -154,7 +154,6 @@ export default function App() {
           </div>
           <div className="hidden md:flex gap-6 text-sm font-medium text-slate-600">
             <button onClick={() => navigateTo('home')} className="hover:text-purple-600 transition">Home</button>
-            <button onClick={() => navigateTo('contact')} className="hover:text-purple-600 transition">Contact</button>
           </div>
         </div>
       </nav>
