@@ -6,6 +6,31 @@ import {
   Layers, Star, Mail, Info, X
 } from 'lucide-react';
 
+// --- ADSTERRA BANNER COMPONENT (NEW) ---
+const ADSTERRA_AD_SCRIPT = `
+<script type="text/javascript">
+	atOptions = {
+		'key' : 'ae3e8c01fff6c433b6ace23f4790d32f',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/ae3e8c01fff6c433b6ace23f4790d32f/invoke.js"></script>
+`;
+
+const AdsterraBanner = () => (
+  // Use a flex container to center the ad block and apply margin for spacing
+  <div 
+    className="flex justify-center my-10 w-full" 
+    style={{ minHeight: '250px' }} // Reserve space to prevent layout shift
+    dangerouslySetInnerHTML={{ __html: ADSTERRA_AD_SCRIPT }} 
+  />
+);
+// ----------------------------------------
+
+
 // --- COMPONENTS FOR PAGES ---
 
 const PrivacyPolicy = () => (
@@ -246,6 +271,10 @@ export default function App() {
                 )}
               </div>
             </header>
+
+            {/* --- ADSTERRA BANNER INSERTION POINT --- */}
+            <AdsterraBanner />
+            {/* -------------------------------------- */}
 
             {/* --- MAIN CONTENT (SEO / BLOG / GUIDE) --- */}
             <main className="max-w-4xl mx-auto px-4 py-16 space-y-20 text-slate-700">
